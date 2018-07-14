@@ -1,0 +1,49 @@
+{% extends "OCPlatformBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        .isDisabled {
+            pointer-events: none;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block ocplatform_body %}
+
+    <h2>Liste des annonces</h2>
+
+    <ul>
+        {% for advert in listAdverts %}
+        <li>
+            <a href="{{ path('oc_platform_view', {'id': advert.id}) }}">
+            {{ advert.title }}
+            </a>
+            par {{ advert.author }},
+            le {{ advert.date|date('d/m/Y') }}
+        </li>
+        {% else %}
+        <li>Pas (encore !) d'annonces</li>
+        {% endfor %}
+    </ul>
+    <ul class="pagination">
+        <li class="page-item {% if (page == 1) %}isDisabled disabled {% endif %}">
+            <a class="page-link" href="{% if (page > 1) %} {{ path('oc_platform_home', {'page' : page - 1}) }} {% endif %} ">Previous</a>
+        </li>
+        {% for i in 1..nbPages %}
+            <li class="page-item {% if i == page %} active {% endif %}">
+                <a class="page-link" href="{{ path('oc_platform_home', {'page' : i}) }}">{{ i }}</a>
+            </li>
+        {% endfor %}
+
+        <li class="page-item {% if page == nbPages %}isDisabled disabled {% endif %}">
+            <a class="page-link" href="{% if (page < nbPages) %} {{ path('oc_platform_home', {'page' : page + 1}) }} {% endif %}">Next</a>
+        </li>
+    </ul>
+
+{% endblock %}

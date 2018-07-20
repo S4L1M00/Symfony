@@ -13,19 +13,7 @@ class AdvertEditType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-        $pattern = "D%";
-
-        $builder
-            ->remove('date');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'oc_platformbundle_advert';
+        $builder->remove('date');
     }
 
     public function getParent()

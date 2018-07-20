@@ -101,12 +101,23 @@ class AdvertController extends Controller
 
         $form = $this->createForm(AdvertEditType::class,$advert);
 
-        $em->persist($advert);
-        $em->flush();
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em->persist($advert);
+                $em->flush();
+        
+                $request->getSession()->getFlashBag()->add('notice', 'Annonce bien modifiée.');
+        
+                return $this->redirectToRoute('oc_platform_view', array('id' => $advert->getId()));
+            }
+        }
+
 
         return $this->render('OCPlatformBundle:Advert:edit.html.twig',array(
             'advert' => $advert,
-            'form'   => $form
+            'form'   => $form->createView()
         ));
     }
 

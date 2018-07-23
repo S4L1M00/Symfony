@@ -29,3 +29,8 @@ oc_platform_delete:
         _controller: OCPlatformBundle:Advert:delete
     requirements:
         id: \d+
+
+oc_platform_test:
+    path:   /test
+    defaults:
+        _controller: OCPlatformBundle:Advert:test

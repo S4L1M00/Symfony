@@ -10,7 +10,7 @@ class LoadAdvert implements FixtureInterface
 {
   public function load(ObjectManager $manager)
   {
-    for ($i=0; $i <4 ; $i++) { 
+    for ($i=0; $i <15 ; $i++) { 
       
       $advert = new Advert();
       $advert->setTitle('Titre '.$i);
@@ -19,7 +19,7 @@ class LoadAdvert implements FixtureInterface
       
       $manager->persist($advert);
       
-      for ($j=0; $j < 3 ; $j++) { 
+      for ($j=0; $j < 2 ; $j++) { 
         $application = new Application();
         $application->setAuthor('Application '.$j);
         $application->setContent('Contenu '.$j.' de l\'annonce '.$i);
@@ -28,14 +28,6 @@ class LoadAdvert implements FixtureInterface
         $manager->persist($application);
       
       }
-      
-      //Création des annonces que l'on pourra supprimer car pas de candidature
-      $advert = new Advert();
-      $advert->setTitle('Titre '.$i);
-      $advert->setAuthor('Auteur'.$i.'@symfony.com');
-      $advert->setContent('Contenu numero '.$i);
-      $advert->setDate(new \DateTime('2018-07-09'));
-      $manager->persist($advert);
     }
     // On déclenche l'enregistrement de toutes les compétences
     $manager->flush();

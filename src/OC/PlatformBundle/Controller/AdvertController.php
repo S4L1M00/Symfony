@@ -75,6 +75,7 @@ class AdvertController extends Controller
             $form->handleRequest($request);
 
             if ($form->isValid()) {
+
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($advert);
                 $em->flush();
@@ -105,7 +106,7 @@ class AdvertController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $em->persist($advert);
+
                 $em->flush();
         
                 $request->getSession()->getFlashBag()->add('notice', 'Annonce bien modifiée.');
@@ -121,7 +122,7 @@ class AdvertController extends Controller
         ));
     }
 
-    public function deleteAction($id){
+    public function deleteAction(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
 
         $advert = $em->getRepository('OCPlatformBundle:Advert')->find($id);
@@ -140,13 +141,21 @@ class AdvertController extends Controller
             $em->remove($advertSkill);
         }
 
-        $em->remove($advert);
+        $form = $this->get('form.factory')->create();
 
-        $em->flush();
+        if ($request-> isMethod('POST') && $form->handleRequest($request)->isValid()){
+            $em->remove($advert);
+            $em->flush();
 
-        $listAdverts = $this->getDoctrine()->getRepository('OCPlatformBundle:Advert')->findAll();
+            $request->getSession()->getFlashBag()->add('info', 'Annonce bien supprimmée.');
+            
+            return $this->redirectToRoute('oc_platform_home');
+        }
         
-        return $this->render('OCPlatformBundle:Advert:index.html.twig',array('listAdverts'=>$listAdverts));
+        return $this->render('OCPlatformBundle:Advert:delete.html.twig', array(
+            'advert' => $advert,
+            'form'   => $form->createView(),
+        ));
     }
 
     public function menuAction($limit){
@@ -163,5 +172,29 @@ class AdvertController extends Controller
         return $this->render('OCPlatformBundle:Advert:menu.html.twig', array(
             'listAdverts' => $listAdverts
         ));
+    }
+
+    public function testAction()
+    {
+      $advert = new Advert;
+          
+      $advert->setDate(new \Datetime());  // Champ « date » OK
+      $advert->setTitle('abc');           // Champ « title » incorrect : moins de 10 caractères
+      //$advert->setContent('blabla');    // Champ « content » incorrect : on ne le définit pas
+      $advert->setAuthor('A');            // Champ « author » incorrect : moins de 2 caractères
+          
+      // On récupère le service validator
+      $validator = $this->get('validator');
+          
+      // On déclenche la validation sur notre object
+      $listErrors = $validator->validate($advert);
+  
+      // Si $listErrors n'est pas vide, on affiche les erreurs
+      if(count($listErrors) > 0) {
+        // $listErrors est un objet, sa méthode __toString permet de lister joliement les erreurs
+        return new Response((string) $listErrors);
+      } else {
+        return new Response("L'annonce est valide !");
+      }
     }
 }

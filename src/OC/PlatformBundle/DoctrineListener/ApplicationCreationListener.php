@@ -28,6 +28,6 @@ class ApplicationCreationListener
             return;
         }
 
-        $this->applicationMailer->sendNewNotification($entity);
+        // $this->applicationMailer->sendNewNotification($entity);
     }
 }

@@ -46,22 +46,12 @@
     {% endif %}
     <div class="form-group">
         <div class="col-sm-2">
-            {{ form_label(form.image.url,"Url de l'image") }}
+            {{ form_row(form.image.file) }}
         </div>
 
-        <div class="col-sm-10">
-            {{ form_widget(form.image.url,{'attr':{'class': 'form-control'}}) }}
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-sm-2">
-            {{ form_label(form.image.alt,"Alt de l'image") }}
-        </div>
-    
-        <div class="col-sm-10">
-            {{ form_widget(form.image.alt,{'attr':{'class': 'form-control'}}) }}
-        </div>
+        {# <div class="col-sm-10">
+            {{ form_widget(form.image.file,{'attr':{'class': 'form-control'}}) }}
+        </div> #}
     </div>
 
     <div class="form-group">

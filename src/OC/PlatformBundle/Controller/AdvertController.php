@@ -9,12 +9,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Config\Definition\Exception\Exception;
+
 use OC\PlatformBundle\Entity\Advert;
 use OC\PlatformBundle\Form\AdvertType;
 use OC\PlatformBundle\Form\AdvertEditType;
 use OC\PlatformBundle\Entity\Image;
 use OC\PlatformBundle\Entity\Application;
 use OC\PlatformBundle\Entity\AdvertSkill;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 
 class AdvertController extends Controller
 {
@@ -66,7 +70,14 @@ class AdvertController extends Controller
         ));
     }
 
+    // /**
+    //  * @Security("has_role('ROLE_AUTEUR')")
+    //  */
     public function addAction(Request $request){
+
+        // if(!$this->get('security.authorization_checker')->isGranted('ROLE_AUTEUR')){
+        //     throw new AccessDeniedException('Accès limité aux auteurs.');
+        // }
         
         $advert = new Advert();
         $form = $this->createForm(AdvertType::class, $advert);

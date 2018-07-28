@@ -24,6 +24,13 @@
             <a class="btn btn-primary btn-lg" href="https://openclassrooms.com/courses/developpez-votre-site-web-avec-le-framework-symfony2">
             Participer au MOOC »
             </a>
+              {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                  Connecté en tant que {{ app.user.username }}
+                  -
+                  <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+              {% else %}
+                  <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+              {% endif %}
         </p>
         </div>
 

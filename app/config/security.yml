@@ -16,9 +16,10 @@ security:
                     user:  { password: userpass, roles: [ 'ROLE_USER' ] }
                     admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
         main:
-            entity:
-                class: OC\UserBundle\Entity\User
-                property: username
+            id: fos_user.user_provider.username
+            # entity:
+            #     class: OC\UserBundle\Entity\User
+            #     property: username
 
     # provider: in_memory
     
@@ -33,14 +34,16 @@ security:
 
         main:
             pattern: ^/
-            anonymous: false
+            anonymous: true
             provider: main
             form_login:
-                login_path: login
-                check_path: login_check
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
             logout:
-                path:       logout
-                target:     login
+                path:       fos_user_security_logout
+                target:     fos_user_security_login
+            remember_me:
+                secret:     %secret% # %secret% est un paramètre de parameter
 
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN}

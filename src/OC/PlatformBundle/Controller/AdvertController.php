@@ -208,4 +208,12 @@ class AdvertController extends Controller
         return new Response("L'annonce est valide !");
       }
     }
+
+    
+    public function translationAction($name)
+    {
+        return $this->render('OCPlatformBundle:Advert:translation.html.twig', array(
+        'name' => $name
+        ));
+    }
 }

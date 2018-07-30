@@ -4,7 +4,7 @@ oc_core:
 
 oc_platform:
     resource: "@OCPlatformBundle/Resources/config/routing.yml"
-    prefix:   /platform
+    prefix:   /{_locale}/platform
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

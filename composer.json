@@ -33,7 +33,10 @@
         "symfony/symfony": "3.3.*",
         "twig/twig": "^1.0||^2.0",
         "stof/doctrine-extensions-bundle": "^1.2.2",
-        "friendsofsymfony/user-bundle": "dev-master"
+        "friendsofsymfony/user-bundle": "dev-master",
+        "symfony/assetic-bundle": "^2.7.1",
+        "leafo/scssphp": "~0.6",
+        "patchwork/jsqueeze": "~1.0"
 
     },
     "require-dev": {

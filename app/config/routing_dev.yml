@@ -19,3 +19,8 @@ oc_platform_translation:
         _controller: OCPlatformBundle:Advert:translation
     requirements:
         _locale: en|fr|de
+
+oc_platform_paramconverter:
+    path: /test/{json}
+    defaults:
+        _controller: "OCPlatformBundle:Advert:ParamConverter"

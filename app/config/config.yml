@@ -83,3 +83,7 @@ fos_user:
     from_email:
         address:        noreply@example.com
         sender_name:    Demo App
+
+assetic:
+    debug: '%kernel.debug%'
+    use_controller: '%kernel.debug%'

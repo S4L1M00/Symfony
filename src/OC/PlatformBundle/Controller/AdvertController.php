@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use OC\PlatformBundle\Entity\Advert;
 use OC\PlatformBundle\Form\AdvertType;
@@ -48,16 +49,10 @@ class AdvertController extends Controller
         ));
     }
 
-    public function viewAction($id){
+    public function viewAction(Advert $advert){
 
         $em = $this->getDoctrine()->getManager();
-        
-
-        $advert = $em->getRepository('OCPlatformBundle:Advert')->find($id);
-
-        if($advert == null){
-            throw new Exception('L\'annnonce d\'id :'.$id.' n\'existe pas');
-        }
+    
 
         $listApplications = $em->getRepository('OCPlatformBundle:Application')->findBy(array('advert' => $advert));
 
@@ -215,5 +210,13 @@ class AdvertController extends Controller
         return $this->render('OCPlatformBundle:Advert:translation.html.twig', array(
         'name' => $name
         ));
+    }
+
+    /**
+     * @ParamConverter("json")
+     */
+    public function ParamConverterAction($json)
+    {
+        return new Response(print_r($json, true));
     }
 }

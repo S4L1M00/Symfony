@@ -24,3 +24,7 @@ oc_platform_paramconverter:
     path: /test/{json}
     defaults:
         _controller: "OCPlatformBundle:Advert:ParamConverter"
+
+coresphere_console:
+    resource: .
+    type: extra

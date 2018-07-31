@@ -36,7 +36,8 @@
         "friendsofsymfony/user-bundle": "dev-master",
         "symfony/assetic-bundle": "^2.7.1",
         "leafo/scssphp": "~0.6",
-        "patchwork/jsqueeze": "~1.0"
+        "patchwork/jsqueeze": "~1.0",
+        "coresphere/console-bundle": "~0.4"
 
     },
     "require-dev": {
